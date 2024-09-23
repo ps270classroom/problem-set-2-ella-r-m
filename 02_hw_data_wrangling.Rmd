@@ -42,6 +42,9 @@ Load the data using the `read_csv` function and save it as `fb_ads` (using this 
 Use `dplyr` functions to create a table with the number of candidates in each type of incumbency status in the data set. Save this table output as `incumbency_table` (for the autograder). Use the function `knitr::kable()` on this table to have a nicely formatted table produced in the knitted output. 
 
  **Rubric**: 2pt for loading the data (autograder); 1pt for describing the number of candidates (PDF); 3pts for creating the table (autograder); 2pt for using `kable()` to nicely format the output (PDF)
+ 
+ ## Answer 1
+ 
 ```{r}
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 install.packages("readr")
@@ -68,7 +71,7 @@ incumbency_table <- candidates_data |>
           
 ```
 
-## Answer 1
+
 There are 103 candidates in the dataset. 
 
 
@@ -79,6 +82,12 @@ There are 103 candidates in the dataset.
 Filter the data to just US House and US Senate races and use this to create a tibble called `party_incumbent_promote` that has 6 rows that summarizes the average of `ad_tone_promote` for each combination of `party` and `incumbency`. Call the variable summarizing the promote variable as `promote_prop` and be sure to remove any missing values when computing the averages. 
 
 Use `knitr::kable()` to produce a nicely formatted table. In this call, set the `digits` arguments to 3 and use the `col.names` argument to pass a nicer set of names. You can use the following as a template:
+
+In the writeup, describe which type of candidate sponsored the most promoting ads on average. 
+
+ **Rubric**: 3pts for creating `party_incumbent_promote` correctly (autograder); 2pt for a nicely formatted table (PDF); 1pt for changing the column names of the output table (PDF); 1pt for correctly identifying the type of candidate with highest average (PDF)
+
+## Answer 2
 
 ```{r eval = FALSE}
 knitr::kable(my_table, col.names = c("Variable 1", "Variable 2", ...))
@@ -110,11 +119,7 @@ party_incumbent_promote <-filtered_data |>
           
 ```
 
-In the writeup, describe which type of candidate sponsored the most promoting ads on average. 
 
- **Rubric**: 3pts for creating `party_incumbent_promote` correctly (autograder); 2pt for a nicely formatted table (PDF); 1pt for changing the column names of the output table (PDF); 1pt for correctly identifying the type of candidate with highest average (PDF)
-
-## Answer 2
 The type of candidate that sponsored the most promoting ads on average was Democrats running for open seats.
 
 
@@ -127,11 +132,39 @@ Create a new variable called `impressions_millions` that is the total Facebook a
 
 Create a histogram of this variable for just the US House races. Save the ggplot output as `plot_q3` and also print it to produce a plot in the output. In the text, describe the shape of the histogram and tell the reader if most of the House candidates had more than 10 million ads impressions on Facebook. 
 
- **Rubric:** 2pt for creating the new variable (autograder); 3pts for creating the histogram object (autograder); 2pts for answering the question about the histogram (PDF)
+**Rubric:** 2pt for creating the new variable (autograder); 3pts for creating the histogram object (autograder); 2pts for answering the question about the histogram (PDF)
 
 ## Answer 3
 
+```{r}
+install.packages("ggplot2")
+library(ggplot2)
+library(dplyr)
 
+fb_ads <- read_csv("/Users/ellamahaney/Downloads/Polisci270/fb_ads.csv")
+
+fb_ads <- fb_ads |> 
+  mutate(impressions_millions = impressions / 1e6)
+
+us_house_ads <- fb_ads |> 
+  filter(office == "US House")
+
+  
+plot_q3 <- ggplot(data = us_house_ads,
+       mapping = aes(x= impressions_millions)) + 
+  geom_histogram() + 
+  labs(title = "Total Facebook ad Impressions for all the US House Races Shown by a Histogram",
+       x = "impressions (in millions)",
+       y = "Number of People Running With That Amount of Impressions") 
+  
+         print(plot_q3)
+         
+
+plot_q3
+``` 
+
+
+The shape of the histogram is skewed right. Most of the House candidates did not have more than 10 million ad impressions on facebook.
 
 \newpage
 
