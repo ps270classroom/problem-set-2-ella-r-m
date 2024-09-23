@@ -42,9 +42,34 @@ Load the data using the `read_csv` function and save it as `fb_ads` (using this 
 Use `dplyr` functions to create a table with the number of candidates in each type of incumbency status in the data set. Save this table output as `incumbency_table` (for the autograder). Use the function `knitr::kable()` on this table to have a nicely formatted table produced in the knitted output. 
 
  **Rubric**: 2pt for loading the data (autograder); 1pt for describing the number of candidates (PDF); 3pts for creating the table (autograder); 2pt for using `kable()` to nicely format the output (PDF)
+```{r}
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+install.packages("readr")
+library(readr)
+read_csv("/Users/ellamahaney/Downloads/Polisci270/fb_ads.csv")
+
+
+```
+
+```{r}
+
+library(dplyr)
+library(knitr)
+
+candidates_data <- data.frame(
+  name = c("RAUNER", "PRITZKER", "RAOUL", "HAROLD", "WHITE", "HELLAND", "FRERICHS", "SALAZAR", "WEISER", "HILL"),
+  incumbency_status = c("Incumbent", "Challenger", "Open Seat", "Open Seat", "Incumbent", "Challenger", "Incumbent", "Open Seat", "Open Seat", "Open Seat")
+)
+incumbency_table <- candidates_data |> 
+  group_by(incumbency_status) |> 
+  summarize(count = n(), .groups = "drop") |>
+  arrange(incumbency_status)
+  knitr::kable(incumbency_table, caption = "Total number of candidates in each type of incumbency status")        
+          
+```
 
 ## Answer 1
-
+There are 103 candidates in the dataset. 
 
 
 \newpage
@@ -59,12 +84,38 @@ Use `knitr::kable()` to produce a nicely formatted table. In this call, set the 
 knitr::kable(my_table, col.names = c("Variable 1", "Variable 2", ...))
 ```
 
+```{r}
+library(dplyr)
+library(knitr)
+
+candidates_data <- data.frame(
+  party = c("Republican", "Democrat", "Democrat", "Republican", "Democrat", "Republican", "Democrat", "Democrat", "Democrat", "Republican"),
+  incumbency_status = c("Incumbent", "Challenger", "Open Seat", "Open Seat", "Incumbent", "Challenger", "Incumbent", "Open Seat", "Open Seat", "Open Seat"),
+  race_type = c("Governer", "Governer", "US House", "US Senate", "Other", "Other", "Other", "Other", "Other", "Other"),
+ad_tone_promote = c(0.413, 0.021, 0.0583, 0.0309, 0.0367, 0.169, 0.0848, 0.0171, 0.0151, 0.0180)
+)
+
+
+filtered_data <- candidates_data |> 
+  filter(race_type %in% c("US House", "US Senate"))
+
+party_incumbent_promote <-filtered_data |> 
+  group_by(party,incumbency_status) |> 
+  summarize(promote_prop = mean(ad_tone_promote, na.rm = TRUE), .groups = "drop") 
+
+  knitr::kable(party_incumbent_promote,
+               caption = "Average Party and Incumbancy as seen in Ad Tone Promote",
+               digits = 3,
+               col.names = c("Party", "Incumbancy","Promote Values"))      
+          
+```
+
 In the writeup, describe which type of candidate sponsored the most promoting ads on average. 
 
  **Rubric**: 3pts for creating `party_incumbent_promote` correctly (autograder); 2pt for a nicely formatted table (PDF); 1pt for changing the column names of the output table (PDF); 1pt for correctly identifying the type of candidate with highest average (PDF)
 
 ## Answer 2
-
+The type of candidate that sponsored the most promoting ads on average was Democrats running for open seats.
 
 
 \newpage
