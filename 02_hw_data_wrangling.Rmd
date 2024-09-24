@@ -52,6 +52,7 @@ library(readr)
 read_csv("data/fb_ads.csv")
 
 
+
 ```
 
 ```{r}
@@ -63,11 +64,17 @@ candidates_data <- data.frame(
   name = c("RAUNER", "PRITZKER", "RAOUL", "HAROLD", "WHITE", "HELLAND", "FRERICHS", "SALAZAR", "WEISER", "HILL"),
   incumbency_status = c("Incumbent", "Challenger", "Open Seat", "Open Seat", "Incumbent", "Challenger", "Incumbent", "Open Seat", "Open Seat", "Open Seat")
 )
+
+print(candidates_data)
+
 incumbency_table <- candidates_data |> 
   group_by(incumbency_status) |> 
   summarize(count = n(), .groups = "drop") |>
   arrange(incumbency_status)
-  knitr::kable(incumbency_table, caption = "Total number of candidates in each type of incumbency status")        
+  
+print(incumbency_table)
+
+knitr::kable(incumbency_table, caption = "Total number of candidates in each type of incumbency status")        
           
 ```
 
@@ -220,12 +227,11 @@ fb_top_plot <- ggplot(top_15_us_house_ads, aes(x = impressions_millions,
 geom_bar(stat = "identity") + 
   labs(title = "Total Facebook ad Impressions for all the US House Races Shown by a Histogram",
        x = "Impressions (in millions)",
-       y = "Candidate Last Names",
-       fill = "Party") + 
+       y = "Candidate Last Names") + 
        scale_fill_manual(values = c("R" = "orange", "D" = "purple"))
 
   
-  
+print(top_15_us_house_ads)
        
 
   
