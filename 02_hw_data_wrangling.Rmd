@@ -198,7 +198,7 @@ library(readr)
 library(ggplot2)
 library(dplyr)
 
-fb_ads <- read_csv("/Users/ellamahaney/Downloads/Polisci270/fb_ads.csv")
+fb_ads <- read_csv("data/fb_ads.csv")
 
 fb_ads <- fb_ads |> 
   mutate(impressions_millions = impressions / 1e6)
