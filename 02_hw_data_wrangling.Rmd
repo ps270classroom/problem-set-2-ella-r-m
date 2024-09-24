@@ -44,7 +44,7 @@ Use `dplyr` functions to create a table with the number of candidates in each ty
  **Rubric**: 2pt for loading the data (autograder); 1pt for describing the number of candidates (PDF); 3pts for creating the table (autograder); 2pt for using `kable()` to nicely format the output (PDF)
  
  ## Answer 1
- 
+ There are 103 candidates in the dataset. 
 ```{r}
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 install.packages("readr")
@@ -72,7 +72,7 @@ incumbency_table <- candidates_data |>
 ```
 
 
-There are 103 candidates in the dataset. 
+
 
 
 \newpage
@@ -89,6 +89,8 @@ In the writeup, describe which type of candidate sponsored the most promoting ad
 
 ## Answer 2
 
+
+The type of candidate that sponsored the most promoting ads on average was Democrats running for open seats.
 ```{r eval = FALSE}
 knitr::kable(my_table, col.names = c("Variable 1", "Variable 2", ...))
 ```
@@ -120,7 +122,7 @@ party_incumbent_promote <-filtered_data |>
 ```
 
 
-The type of candidate that sponsored the most promoting ads on average was Democrats running for open seats.
+
 
 
 \newpage
@@ -135,7 +137,7 @@ Create a histogram of this variable for just the US House races. Save the ggplot
 **Rubric:** 2pt for creating the new variable (autograder); 3pts for creating the histogram object (autograder); 2pts for answering the question about the histogram (PDF)
 
 ## Answer 3
-
+The shape of the histogram is skewed right. Most of the House candidates did not have more than 10 million ad impressions on facebook.
 ```{r}
 install.packages("ggplot2")
 library(ggplot2)
@@ -164,7 +166,7 @@ plot_q3
 ``` 
 
 
-The shape of the histogram is skewed right. Most of the House candidates did not have more than 10 million ad impressions on facebook.
+
 
 \newpage
 
@@ -220,7 +222,7 @@ geom_bar(stat = "identity") +
        x = "Impressions (in millions)",
        y = "Candidate Last Names",
        fill = "Party") + 
-       scale_fill_manual(values = c("Republican" = "orange", "Democrat" = "purple"))
+       scale_fill_manual(values = c("R" = "orange", "D" = "purple"))
 
   
   
