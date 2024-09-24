@@ -49,7 +49,7 @@ Use `dplyr` functions to create a table with the number of candidates in each ty
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 install.packages("readr")
 library(readr)
-read_csv("/Users/ellamahaney/Downloads/Polisci270/fb_ads.csv")
+read_csv("data/fb_ads.csv")
 
 
 ```
