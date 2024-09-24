@@ -206,16 +206,14 @@ top_15_us_house_ads <- top_15_us_house_ads |>
   mutate(cand_name_last = reorder(cand_name_last, impressions_millions))
 
 fb_top_plot <- ggplot(top_15_us_house_ads, aes(x = impressions_millions, 
-                                              y = cand_name_last, 
-                                              fill = party)) +
+                                              y = cand_name_last)) +
   
 
 geom_bar(stat = "identity") + labs(title = "Total Facebook ad Impressions for all the US House Races Shown by a Histogram",
        x = "Impressions (in millions)",
        y = "Candidate Last Names",
        fill = "party") + 
-       scale_fill_manual(values = c("R" = "orange", "D" = "purple"))
-theme_minimal()
+       scale_fill_manual(values = c("R" = "orange", "D" = "purple")) + theme_minimal()
   
 print(top_15_us_house_ads)
 print(fb_top_plot)
