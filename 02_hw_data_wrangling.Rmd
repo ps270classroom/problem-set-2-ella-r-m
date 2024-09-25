@@ -37,7 +37,7 @@ Use `dplyr` functions to create a table with the number of candidates in each ty
 
 **Rubric**: 2pt for loading the data (autograder); 1pt for describing the number of candidates (PDF); 3pts for creating the table (autograder); 2pt for using `kable()` to nicely format the output (PDF)
 
-\## Answer 1 There are 103 candidates in the dataset.
+\## Answer 1 There are 7014 candidates in the dataset.
 
 ```{r}
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
@@ -86,26 +86,21 @@ knitr::kable(my_table, col.names = c("Variable 1", "Variable 2", ...))
 library(dplyr)
 library(knitr)
 
-candidates_data <- data.frame(
-  party = c("Republican", "Democrat", "Democrat", "Republican", "Democrat", "Republican", "Democrat", "Democrat", "Democrat", "Republican"),
-  incumbency_status = c("Incumbent", "Challenger", "Open Seat", "Open Seat", "Incumbent", "Challenger", "Incumbent", "Open Seat", "Open Seat", "Open Seat"),
-  race_type = c("Governer", "Governer", "US House", "US Senate", "Other", "Other", "Other", "Other", "Other", "Other"),
-ad_tone_promote = c(0.413, 0.021, 0.0583, 0.0309, 0.0367, 0.169, 0.0848, 0.0171, 0.0151, 0.0180)
-)
 
 
-filtered_data <- candidates_data |> 
-  filter(race_type %in% c("US House", "US Senate"))
+
+filtered_data <- fb_ads |> 
+  filter(office %in% c("US House", "US Senate"))
 
 party_incumbent_promote <-filtered_data |> 
-  group_by(party,incumbency_status) |> 
+  group_by(party,incumbency) |> 
   summarize(promote_prop = mean(ad_tone_promote, na.rm = TRUE), .groups = "drop") 
 
   knitr::kable(party_incumbent_promote,
                caption = "Average Party and Incumbancy as seen in Ad Tone Promote",
                digits = 3,
-               col.names = c("party", "incumbency","Promote Values"))      
-          
+               col.names = c("political party", "politicians' incumbency","promote values"))      
+      print(party_incumbent_promote)
 ```
 
 \newpage
