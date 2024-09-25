@@ -43,10 +43,7 @@ Use `dplyr` functions to create a table with the number of candidates in each ty
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 install.packages("readr")
 library(readr)
-read_csv("data/fb_ads.csv")
-
-
-
+fb_ads <- read_csv("data/fb_ads.csv")
 ```
 
 ```{r}
@@ -54,17 +51,10 @@ read_csv("data/fb_ads.csv")
 library(dplyr)
 library(knitr)
 
-candidates_data <- data.frame(
-  name = c("RAUNER", "PRITZKER", "RAOUL", "HAROLD", "WHITE", "HELLAND", "FRERICHS", "SALAZAR", "WEISER", "HILL"),
-  incumbency_status = c("Incumbent", "Challenger", "Open Seat", "Open Seat", "Incumbent", "Challenger", "Incumbent", "Open Seat", "Open Seat", "Open Seat")
-)
-
-print(candidates_data)
-
-incumbency_table <- candidates_data |> 
-  group_by(incumbency_status) |> 
+incumbency_table <- fb_ads |> 
+  group_by(incumbency) |> 
   summarize(count = n(), .groups = "drop") |>
-  arrange(incumbency_status)
+  arrange(incumbency)
   
 print(incumbency_table)
 
@@ -114,7 +104,7 @@ party_incumbent_promote <-filtered_data |>
   knitr::kable(party_incumbent_promote,
                caption = "Average Party and Incumbancy as seen in Ad Tone Promote",
                digits = 3,
-               col.names = c("Party", "Incumbancy","Promote Values"))      
+               col.names = c("party", "incumbency","Promote Values"))      
           
 ```
 
