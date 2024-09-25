@@ -76,7 +76,7 @@ In the writeup, describe which type of candidate sponsored the most promoting ad
 
 ## Answer 2
 
-The type of candidate that sponsored the most promoting ads on average was Democrats running for open seats.
+The type of candidate that sponsored the most promoting ads on average was Democrats running for incumbent seats.
 
 ```{r eval = FALSE}
 knitr::kable(my_table, col.names = c("Variable 1", "Variable 2", ...))
@@ -100,7 +100,7 @@ party_incumbent_promote <-filtered_data |>
                caption = "Average Party and Incumbancy as seen in Ad Tone Promote",
                digits = 3,
                col.names = c("political party", "politicians' incumbency","promote values"))      
-      print(party_incumbent_promote)
+      
 ```
 
 \newpage
@@ -115,7 +115,7 @@ Create a histogram of this variable for just the US House races. Save the ggplot
 
 ## Answer 3
 
-The shape of the histogram is skewed right. Most of the House candidates did not have more than 10 million ad impressions on facebook.
+The shape of the histogram is skewed right. Most of the House candidates did not have more than 10 million ad impressions on Facebook.
 
 ```{r}
 install.packages("ggplot2")
@@ -138,7 +138,7 @@ plot_q3 <- ggplot(data = us_house_ads,
        x = "impressions (in millions)",
        y = "Number") 
   
-         print(plot_q3)
+        
          
 
 plot_q3
@@ -191,11 +191,16 @@ top_15_us_house_ads <- top_15_us_house_ads |>
   mutate(cand_name_last = reorder(cand_name_last, impressions_millions))
 
 fb_top_plot <- ggplot(top_15_us_house_ads, aes(x = impressions_millions, 
-                                              y = cand_name_last)) + geom_bar(aes(fill = party), stat = "identity") + labs(title = "Total Facebook ad Impressions for all the US House Races Shown by a Histogram",
+                                              y = cand_name_last)) + 
+  
+  
+  geom_bar(aes(fill = party), stat = "identity") + 
+  labs(title = "Total Facebook ad Impressions for all 
+       the US House Races Shown by a Histogram",
        x = "Impressions (in millions)",
        y = "Candidate Last Names",
        fill = "party") + 
-  scale_fill_manual(values = c("R" = "orange", "D" = "purple")) + theme_minimal()
+  scale_fill_manual(values = c("R" = "orange", "D" = "purple")) 
   
 print(top_15_us_house_ads)
 print(fb_top_plot)
